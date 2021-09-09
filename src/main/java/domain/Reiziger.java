@@ -9,7 +9,7 @@ public class Reiziger {
     private String achternaam;
     private Date geboortedatum;
 
-//    private Adres adres;
+
 //    private ArrayList<Ov_chipkaart> ov_chipkaart = new ArrayList<Ov_chipkaart>;
 
     public Reiziger(int reiziger_id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum) {

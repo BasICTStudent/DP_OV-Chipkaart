@@ -1,6 +1,4 @@
-package extra.domain;
-
-import domain.Reiziger;
+package domain;
 
 public class Adres {
     private int adres_id;
@@ -9,9 +7,6 @@ public class Adres {
     private String straat;
     private String woonplaats;
     private int reiziger_id;
-
-    private Reiziger reiziger;
-
 
     public Adres(int adres_id, String postcode, String huisnummer, String straat, String woonplaats, int reiziger_id) {
         this.adres_id = adres_id;
@@ -70,11 +65,15 @@ public class Adres {
         this.reiziger_id = reiziger_id;
     }
 
-    public Reiziger getReiziger() {
-        return reiziger;
-    }
-
-    public void setReiziger(Reiziger reiziger) {
-        this.reiziger = reiziger;
+    @Override
+    public String toString() {
+        return "Adres{" +
+                "adres_id=" + adres_id +
+                ", postcode='" + postcode + '\'' +
+                ", huisnummer='" + huisnummer + '\'' +
+                ", straat='" + straat + '\'' +
+                ", woonplaats='" + woonplaats + '\'' +
+                ", reiziger_id=" + reiziger_id +
+                '}';
     }
 }
