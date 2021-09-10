@@ -12,26 +12,28 @@ public class ReizigerDAOPsql implements ReizigerDAO{
     }
 
     public boolean save(Reiziger reiziger) throws SQLException {
-        String q = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum) VALUES (?, ?, ?, ?, ?)";
+        String q = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum, adres) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, reiziger.getReiziger_id());
         pst.setString(2, reiziger.getVoorletters());
         pst.setString(3, reiziger.getTussenvoegsel());
         pst.setString(4, reiziger.getAchternaam());
         pst.setDate(5, reiziger.getGeboortedatum());
+        pst.setString(6, reiziger.getAdres() + "");
         pst.executeQuery();
         return true;
     }
 
     public boolean update(Reiziger reiziger) throws SQLException {
-        String q = "UPDATE reiziger SET reiziger_id = ?, voorletters = ?, tussenvoegsel = ?, achternaam = ?, geboortedatum = ? WHERE reiziger_id = ?";
+        String q = "UPDATE reiziger SET reiziger_id = ?, voorletters = ?, tussenvoegsel = ?, achternaam = ?, geboortedatum = ?, adres = ? WHERE reiziger_id = ?";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, reiziger.getReiziger_id());
         pst.setString(2, reiziger.getVoorletters());
         pst.setString(3, reiziger.getTussenvoegsel());
         pst.setString(4, reiziger.getAchternaam());
         pst.setDate(5, reiziger.getGeboortedatum());
-        pst.setInt(6, reiziger.getReiziger_id());
+        pst.setString(6, reiziger.getAdres() + "");
+        pst.setInt(7, reiziger.getReiziger_id());
         pst.executeQuery();
         return true;
     }
@@ -60,7 +62,8 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             String TV = myRs.getString("tussenvoegsel");
             String AN = myRs.getString("achternaam");
             String GD = myRs.getString("geboortedatum");
-            return new Reiziger(Integer.parseInt(RID), VL, TV, AN, Date.valueOf(GD));
+            String adres = myRs.getString("adres");
+            return new Reiziger(Integer.parseInt(RID), VL, TV, AN, Date.valueOf(GD), adres);
         }
         return null;
     }
@@ -78,7 +81,8 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             String TV = myRs.getString("tussenvoegsel");
             String AN = myRs.getString("achternaam");
             String GD = myRs.getString("geboortedatum");
-            Rlist.add(new Reiziger(Integer.parseInt(RID), VL, TV, AN, Date.valueOf(GD)));
+            String adres = myRs.getString("adres");
+            Rlist.add(new Reiziger(Integer.parseInt(RID), VL, TV, AN, Date.valueOf(GD), adres));
         }
         return Rlist;
     }
@@ -95,7 +99,8 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             String TV = myRs.getString("tussenvoegsel");
             String AN = myRs.getString("achternaam");
             String GD = myRs.getString("geboortedatum");
-            Rlist.add(new Reiziger(Integer.parseInt(RID), VL, TV, AN, Date.valueOf(GD)));
+            String adres = myRs.getString("adres");
+            Rlist.add(new Reiziger(Integer.parseInt(RID), VL, TV, AN, Date.valueOf(GD), adres));
         }
         return Rlist;
     }

@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Map;
+
 public class Adres {
     private int adres_id;
     private String postcode;
@@ -7,14 +9,24 @@ public class Adres {
     private String straat;
     private String woonplaats;
     private int reiziger_id;
+    private Reiziger reiziger;
 
-    public Adres(int adres_id, String postcode, String huisnummer, String straat, String woonplaats, int reiziger_id) {
+    public Adres(int adres_id, String postcode, String huisnummer, String straat, String woonplaats, int reiziger_id, Reiziger reiziger) {
         this.adres_id = adres_id;
         this.postcode = postcode;
         this.huisnummer = huisnummer;
         this.straat = straat;
         this.woonplaats = woonplaats;
         this.reiziger_id = reiziger_id;
+        this.reiziger = reiziger;
+    }
+
+    public Reiziger getReiziger() {
+        return reiziger;
+    }
+
+    public void setReiziger(Reiziger reiziger) {
+        this.reiziger = reiziger;
     }
 
     public int getAdres_id() {

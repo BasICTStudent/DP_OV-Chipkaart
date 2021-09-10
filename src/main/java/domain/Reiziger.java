@@ -8,7 +8,7 @@ public class Reiziger {
     private String tussenvoegsel;
     private String achternaam;
     private Date geboortedatum;
-
+    private String adres;
 
 //    private ArrayList<Ov_chipkaart> ov_chipkaart = new ArrayList<Ov_chipkaart>;
 
@@ -18,6 +18,23 @@ public class Reiziger {
         this.tussenvoegsel = tussenvoegsel;
         this.achternaam = achternaam;
         this.geboortedatum = geboortedatum;
+    }
+
+    public Reiziger(int reiziger_id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum, String adres) {
+        this.id = reiziger_id;
+        this.voorletters = voorletters;
+        this.tussenvoegsel = tussenvoegsel;
+        this.achternaam = achternaam;
+        this.geboortedatum = geboortedatum;
+        this.adres = adres;
+    }
+
+    public String getAdres() {
+        return adres;
+    }
+
+    public void setAdres(String adres) {
+        this.adres = adres;
     }
 
     public int getReiziger_id() {
@@ -73,7 +90,8 @@ public class Reiziger {
                 ", voorletters='" + voorletters + '\'' +
                 ", tussenvoegsel='" + tussenvoegsel + '\'' +
                 ", achternaam='" + achternaam + '\'' +
-                ", geboortedatum=" + geboortedatum +
+                ", geboortedatum='" + geboortedatum + '\'' +
+                ", adres=" + adres +
                 '}';
     }
 

@@ -10,9 +10,11 @@ public class AdresDAOPsql implements AdresDAO{
 
     public AdresDAOPsql(Connection conn) {
         this.conn = conn;
+        this.rdao = new ReizigerDAOPsql(conn);
     }
 
     public boolean save(Adres adres) throws SQLException {
+        Reiziger r = rdao.findByid(adres.getReiziger_id());
         String q = "INSERT INTO adres (adres_id, postcode, huisnummer, straat, woonplaats, reiziger_id) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, adres.getAdres_id());
@@ -21,11 +23,18 @@ public class AdresDAOPsql implements AdresDAO{
         pst.setString(4, adres.getStraat());
         pst.setString(5, adres.getWoonplaats());
         pst.setInt(6, adres.getReiziger_id());
-        pst.executeQuery();
+
+        try {
+            pst.executeQuery();
+        } catch (Exception e) {
+            r.setAdres(adres.toString());
+            rdao.save(r);
+        }
         return true;
     }
 
     public boolean update(Adres adres) throws SQLException {
+        Reiziger r = rdao.findByid(adres.getReiziger_id());
         String q = "UPDATE adres SET adres_id = ?, postcode = ?, huisnummer = ?, straat = ?, woonplaats = ?, reiziger_id = ? WHERE adres_id = ?";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, adres.getAdres_id());
@@ -35,11 +44,19 @@ public class AdresDAOPsql implements AdresDAO{
         pst.setString(5, adres.getWoonplaats());
         pst.setInt(6, adres.getReiziger_id());
         pst.setInt(7, adres.getAdres_id());
-        pst.executeQuery();
+
+        try {
+            pst.executeQuery();
+        } catch (Exception e) {
+            r.setAdres(adres.toString());
+            rdao.update(r);
+        }
+
         return true;
     }
 
     public boolean delete(Adres adres) throws SQLException {
+        Reiziger r = rdao.findByid(adres.getReiziger_id());
         String q = "DELETE FROM adres WHERE adres_id = ? AND postcode = ? AND huisnummer = ? AND straat = ? AND woonplaats = ? AND reiziger_id = ?";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, adres.getAdres_id());
@@ -48,7 +65,13 @@ public class AdresDAOPsql implements AdresDAO{
         pst.setString(4, adres.getStraat());
         pst.setString(5, adres.getWoonplaats());
         pst.setInt(6, adres.getReiziger_id());
-        pst.executeQuery();
+
+        try {
+            pst.executeQuery();
+        } catch (Exception e) {
+            r.setAdres(null);
+            rdao.update(r);
+        }
         return true;
     }
 
@@ -65,7 +88,9 @@ public class AdresDAOPsql implements AdresDAO{
             String ST = myRs.getString("straat");
             String WP = myRs.getString("woonplaats");
             String RID = myRs.getString("reiziger_id");
-            return new Adres(Integer.parseInt(AID), PC, HN, ST, WP, Integer.parseInt(RID));
+
+            Reiziger r = rdao.findByid(Integer.parseInt(RID));
+            return new Adres(Integer.parseInt(AID), PC, HN, ST, WP, Integer.parseInt(RID), r);
         }
         return null;
     }
@@ -82,7 +107,9 @@ public class AdresDAOPsql implements AdresDAO{
             String ST = myRs.getString("straat");
             String WP = myRs.getString("woonplaats");
             String RID = myRs.getString("reiziger_id");
-            return new Adres(Integer.parseInt(AID), PC, HN, ST, WP, Integer.parseInt(RID));
+
+            Reiziger r = rdao.findByid(Integer.parseInt(RID));
+            return new Adres(Integer.parseInt(AID), PC, HN, ST, WP, Integer.parseInt(RID), r);
         }
         return null;
     }
@@ -100,7 +127,17 @@ public class AdresDAOPsql implements AdresDAO{
             String ST = myRs.getString("straat");
             String WP = myRs.getString("woonplaats");
             String RID = myRs.getString("reiziger_id");
-            Alist.add(new Adres(Integer.parseInt(AID), PC, HN, ST, WP, Integer.parseInt(RID)));
+
+            Reiziger r = rdao.findByid(Integer.parseInt(RID));
+            Adres a = new Adres(Integer.parseInt(AID), PC, HN, ST, WP, Integer.parseInt(RID), r);
+            Alist.add(a);
+
+            r.setAdres(a.toString());
+            try {
+                rdao.update(r);
+            } catch (Exception e) {
+                //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
+            }
         }
         return Alist;
     }

@@ -7,6 +7,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class testReizigerDAO {
+    /**
+     * P2. Reiziger DAO: persistentie van een klassen
+     *
+     * Deze methode test de CRUD-functionaliteit van de Reiziger DAO
+     *
+     * @throws SQLException
+     */
     public static void testReizigerDAO(ReizigerDAO rdao) throws SQLException {
         System.out.println("\n---------- Test ReizigerDAO -------------");
 
@@ -24,8 +31,8 @@ public class testReizigerDAO {
 
         try {
             // Maak een nieuwe reiziger aan en persisteer deze in de database
-            Reiziger R2 = new Reiziger(99, "e", "e", "e", java.sql.Date.valueOf("1981-03-15"));
-            rdao.save(R2);
+            Reiziger r2 = new Reiziger(99, "e", "e", "e", java.sql.Date.valueOf("1981-03-15"));
+            rdao.save(r2);
         } catch (Exception e) {
             reizigers = rdao.findAll();
             System.out.println("NA: " + reizigers.size() + " reizigers");
@@ -40,6 +47,7 @@ public class testReizigerDAO {
 
             //dit is voor het terug zetten van sietske (op id=77) naar het oude formaat
             try {
+                sietske.setAdres(rdao.findByid(sietske.getReiziger_id()).getAdres());
                 rdao.update(sietske);
             } catch (Exception ea) {
                 //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
