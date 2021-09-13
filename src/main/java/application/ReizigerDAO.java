@@ -1,4 +1,6 @@
-package domain;
+package application;
+
+import domain.Reiziger;
 
 import java.sql.SQLException;
 import java.util.List;

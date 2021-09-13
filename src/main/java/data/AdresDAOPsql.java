@@ -1,10 +1,15 @@
-package domain;
+package data;
+
+import application.AdresDAO;
+import application.ReizigerDAO;
+import domain.Adres;
+import domain.Reiziger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdresDAOPsql implements AdresDAO{
+public class AdresDAOPsql implements AdresDAO {
     private Connection conn;
     private ReizigerDAO rdao;
 

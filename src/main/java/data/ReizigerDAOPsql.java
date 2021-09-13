@@ -1,10 +1,13 @@
-package domain;
+package data;
+
+import application.ReizigerDAO;
+import domain.Reiziger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReizigerDAOPsql implements ReizigerDAO{
+public class ReizigerDAOPsql implements ReizigerDAO {
     private Connection conn;
 
     public ReizigerDAOPsql(Connection conn) {

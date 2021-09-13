@@ -1,8 +1,7 @@
 package test;
 
-import domain.AdresDAO;
 import domain.Reiziger;
-import domain.ReizigerDAO;
+import application.ReizigerDAO;
 
 import java.sql.SQLException;
 import java.util.List;

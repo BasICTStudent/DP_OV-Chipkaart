@@ -1,6 +1,6 @@
 package test;
 
-import domain.AdresDAO;
+import application.AdresDAO;
 import domain.Reiziger;
 import domain.Adres;
 

@@ -1,4 +1,7 @@
-import domain.*;
+import application.AdresDAO;
+import data.AdresDAOPsql;
+import application.ReizigerDAO;
+import data.ReizigerDAOPsql;
 import test.*;
 
 import java.sql.*;
