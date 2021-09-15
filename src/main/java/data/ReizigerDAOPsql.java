@@ -1,5 +1,6 @@
 package data;
 
+import application.AdresDAO;
 import application.ReizigerDAO;
 import domain.Reiziger;
 
@@ -9,9 +10,11 @@ import java.util.List;
 
 public class ReizigerDAOPsql implements ReizigerDAO {
     private Connection conn;
+    private AdresDAO adao;
 
     public ReizigerDAOPsql(Connection conn) {
         this.conn = conn;
+        this.adao = new AdresDAOPsql(conn);
     }
 
     public boolean save(Reiziger reiziger) throws SQLException {
@@ -22,7 +25,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
         pst.setString(3, reiziger.getTussenvoegsel());
         pst.setString(4, reiziger.getAchternaam());
         pst.setDate(5, reiziger.getGeboortedatum());
-        pst.setString(6, reiziger.getAdres() + "");
+        pst.setInt(6, reiziger.getReiziger_id());
         pst.executeQuery();
         return true;
     }
@@ -35,7 +38,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
         pst.setString(3, reiziger.getTussenvoegsel());
         pst.setString(4, reiziger.getAchternaam());
         pst.setDate(5, reiziger.getGeboortedatum());
-        pst.setString(6, reiziger.getAdres() + "");
+        pst.setInt(6, reiziger.getReiziger_id());
         pst.setInt(7, reiziger.getReiziger_id());
         pst.executeQuery();
         return true;
@@ -60,13 +63,13 @@ public class ReizigerDAOPsql implements ReizigerDAO {
         ResultSet myRs = pst.executeQuery();
 
         while (myRs.next()) {
-            String RID = myRs.getString("reiziger_id");
-            String VL = myRs.getString("voorletters");
-            String TV = myRs.getString("tussenvoegsel");
-            String AN = myRs.getString("achternaam");
-            String GD = myRs.getString("geboortedatum");
-            String adres = myRs.getString("adres");
-            return new Reiziger(Integer.parseInt(RID), VL, TV, AN, Date.valueOf(GD), adres);
+            String reiziger_id = myRs.getString("reiziger_id");
+            String voorletters = myRs.getString("voorletters");
+            String tussenvoegsel = myRs.getString("tussenvoegsel");
+            String achternaam = myRs.getString("achternaam");
+            String geboortedatum = myRs.getString("geboortedatum");
+            int adres_id = myRs.getInt("adres");
+            return new Reiziger(Integer.parseInt(reiziger_id), voorletters, tussenvoegsel, achternaam, Date.valueOf(geboortedatum), new AdresDAOPsql(conn).findByid(adres_id));
         }
         return null;
     }
@@ -79,13 +82,13 @@ public class ReizigerDAOPsql implements ReizigerDAO {
         ResultSet myRs = pst.executeQuery();
 
         while (myRs.next()) {
-            String RID = myRs.getString("reiziger_id");
-            String VL = myRs.getString("voorletters");
-            String TV = myRs.getString("tussenvoegsel");
-            String AN = myRs.getString("achternaam");
-            String GD = myRs.getString("geboortedatum");
-            String adres = myRs.getString("adres");
-            Rlist.add(new Reiziger(Integer.parseInt(RID), VL, TV, AN, Date.valueOf(GD), adres));
+            String reiziger_id = myRs.getString("reiziger_id");
+            String voorletters = myRs.getString("voorletters");
+            String tussenvoegsel = myRs.getString("tussenvoegsel");
+            String achternaam = myRs.getString("achternaam");
+            String geboortedatum = myRs.getString("geboortedatum");
+            int adres_id = myRs.getInt("adres");
+            Rlist.add(new Reiziger(Integer.parseInt(reiziger_id), voorletters, tussenvoegsel, achternaam, Date.valueOf(geboortedatum), new AdresDAOPsql(conn).findByid(adres_id)));
         }
         return Rlist;
     }
@@ -97,13 +100,13 @@ public class ReizigerDAOPsql implements ReizigerDAO {
         ResultSet myRs = pst.executeQuery();
 
         while (myRs.next()) {
-            String RID = myRs.getString("reiziger_id");
-            String VL = myRs.getString("voorletters");
-            String TV = myRs.getString("tussenvoegsel");
-            String AN = myRs.getString("achternaam");
-            String GD = myRs.getString("geboortedatum");
-            String adres = myRs.getString("adres");
-            Rlist.add(new Reiziger(Integer.parseInt(RID), VL, TV, AN, Date.valueOf(GD), adres));
+            String reiziger_id = myRs.getString("reiziger_id");
+            String voorletters = myRs.getString("voorletters");
+            String tussenvoegsel = myRs.getString("tussenvoegsel");
+            String achternaam = myRs.getString("achternaam");
+            String geboortedatum = myRs.getString("geboortedatum");
+            int adres_id = myRs.getInt("adres");
+            Rlist.add(new Reiziger(Integer.parseInt(reiziger_id), voorletters, tussenvoegsel, achternaam, Date.valueOf(geboortedatum), adao.findByid(adres_id)));
         }
         return Rlist;
     }
