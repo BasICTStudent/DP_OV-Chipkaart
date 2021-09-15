@@ -1,7 +1,7 @@
-package data;
+package daosql;
 
-import application.AdresDAO;
-import application.ReizigerDAO;
+import dao.AdresDAO;
+import dao.ReizigerDAO;
 import domain.Reiziger;
 
 import java.sql.*;

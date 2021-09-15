@@ -1,6 +1,6 @@
 package test;
 
-import application.AdresDAO;
+import dao.AdresDAO;
 import domain.Reiziger;
 import domain.Adres;
 
@@ -19,7 +19,6 @@ public class testAdresDAO {
         // predifined values
         String gbdatum = "2000-01-10";
         Reiziger reiziger = new Reiziger(100, "T0000", "T0000", "T0000", java.sql.Date.valueOf(gbdatum));
-//        Reiziger T0001 = new Reiziger(101, "T0001", "T0001", "T0001", java.sql.Date.valueOf(gbdatum));
         Adres adres = new Adres(100, "1234AB", "T0000", "T0000", "T0000", 100);
 
 
@@ -38,6 +37,7 @@ public class testAdresDAO {
             System.out.print("Eerst " + adressen.size() + " adressen, voor AdresDAO.save() \n");
             adao.save(adres);
         } catch (Exception e) {
+            //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
             adressen = adao.findAll();
             System.out.println("NA: " + adressen.size() + " adressen");
         }

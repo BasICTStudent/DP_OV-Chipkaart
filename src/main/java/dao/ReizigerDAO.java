@@ -1,4 +1,4 @@
-package application;
+package dao;
 
 import domain.Reiziger;
 

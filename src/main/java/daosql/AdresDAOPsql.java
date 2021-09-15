@@ -1,7 +1,6 @@
-package data;
+package daosql;
 
-import application.AdresDAO;
-import application.ReizigerDAO;
+import dao.AdresDAO;
 import domain.Adres;
 import domain.Reiziger;
 
@@ -25,6 +24,8 @@ public class AdresDAOPsql implements AdresDAO {
         pst.setString(4, adres.getStraat());
         pst.setString(5, adres.getWoonplaats());
         pst.setInt(6, adres.getReiziger_id());
+
+        pst.executeQuery();
         return true;
     }
 
@@ -38,6 +39,8 @@ public class AdresDAOPsql implements AdresDAO {
         pst.setString(5, adres.getWoonplaats());
         pst.setInt(6, adres.getReiziger_id());
         pst.setInt(7, adres.getAdres_id());
+
+        pst.executeQuery();
         return true;
     }
 
@@ -50,6 +53,8 @@ public class AdresDAOPsql implements AdresDAO {
         pst.setString(4, adres.getStraat());
         pst.setString(5, adres.getWoonplaats());
         pst.setInt(6, adres.getReiziger_id());
+
+        pst.executeQuery();
         return true;
     }
 
@@ -86,7 +91,6 @@ public class AdresDAOPsql implements AdresDAO {
             String reiziger_id = myRs.getString("reiziger_id");
 
             return new Adres(Integer.parseInt(adres_id), postcode, huisnummer, straat, woonplaats, Integer.parseInt(reiziger_id));
-
         }
         return null;
     }

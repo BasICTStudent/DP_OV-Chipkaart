@@ -1,6 +1,7 @@
 package domain;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Reiziger {
     private int id;
@@ -8,7 +9,9 @@ public class Reiziger {
     private String tussenvoegsel;
     private String achternaam;
     private Date geboortedatum;
+
     private Adres adres;
+    private ArrayList<Ov_chipkaart> ov_chipkaarten = new ArrayList<>();
 
     public Reiziger(int reiziger_id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum) {
         this.id = reiziger_id;
@@ -80,6 +83,22 @@ public class Reiziger {
     public void setGeboortedatum(Date geboortedatum) {
         this.geboortedatum = geboortedatum;
     }
+
+
+
+    public ArrayList<Ov_chipkaart> getOv_chipkaarten() {
+        return ov_chipkaarten;
+    }
+
+    public void setOv_chipkaarten(ArrayList<Ov_chipkaart> ov_chipkaarten) {
+        this.ov_chipkaarten = ov_chipkaarten;
+    }
+
+    public void addOv_Chipkaarten(Ov_chipkaart ov_chipkaart) {
+        this.ov_chipkaarten.add(ov_chipkaart);
+    }
+
+
 
     @Override
     public String toString() {
