@@ -1,7 +1,6 @@
 package domain;
 
 import java.sql.Date;
-import java.util.ArrayList;
 
 public class Ov_chipkaart {
     private int kaart_nummer;
