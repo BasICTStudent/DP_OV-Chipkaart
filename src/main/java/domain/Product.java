@@ -3,34 +3,37 @@ package domain;
 import java.util.ArrayList;
 
 public class Product {
-    private int product_nummer;
+    private int productNummer;
     private String naam;
     private String beschrijving;
     private int prijs;
 
-    private ArrayList<Ov_chipkaart_product> ov_chipkaart_producten = new ArrayList<>();
+//    private int kaartNummer;
+    private ArrayList<OvChipkaartProduct> ov_chipkaart_producten = new ArrayList<>();
 
-    public Product(int product_nummer, String naam, String beschrijving, int prijs) {
-        this.product_nummer = product_nummer;
+//    public Product(int productNummer, String naam, String beschrijving, int prijs, int kaartNummer) {
+//        this.productNummer = productNummer;
+//        this.naam = naam;
+//        this.beschrijving = beschrijving;
+//        this.prijs = prijs;
+//        this.kaartNummer = kaartNummer;
+//    }
+
+    public Product(int productNummer, String naam, String beschrijving, int prijs, ArrayList<OvChipkaartProduct> ov_chipkaart_producten) { //int kaartNummer,
+        this.productNummer = productNummer;
         this.naam = naam;
         this.beschrijving = beschrijving;
         this.prijs = prijs;
-    }
-
-    public Product(int product_nummer, String naam, String beschrijving, int prijs, ArrayList<Ov_chipkaart_product> ov_chipkaart_producten) {
-        this.product_nummer = product_nummer;
-        this.naam = naam;
-        this.beschrijving = beschrijving;
-        this.prijs = prijs;
+//        this.kaartNummer = kaartNummer;
         this.ov_chipkaart_producten = ov_chipkaart_producten;
     }
 
-    public int getProduct_nummer() {
-        return product_nummer;
+    public int getProductNummer() {
+        return productNummer;
     }
 
-    public void setProduct_nummer(int product_nummer) {
-        this.product_nummer = product_nummer;
+    public void setProductNummer(int productNummer) {
+        this.productNummer = productNummer;
     }
 
     public String getNaam() {
@@ -57,15 +60,19 @@ public class Product {
         this.prijs = prijs;
     }
 
-    public ArrayList<Ov_chipkaart_product> getOv_chipkaart_producten() {
+//    public int getKaartNummer() {
+//        return kaartNummer;
+//    }
+//
+//    public void setKaartNummer(int kaartNummer) {
+//        this.kaartNummer = kaartNummer;
+//    }
+
+    public ArrayList<OvChipkaartProduct> getOv_chipkaart_producten() {
         return ov_chipkaart_producten;
     }
 
-    public void setOv_chipkaart_producten(ArrayList<Ov_chipkaart_product> ov_chipkaart_producten) {
+    public void setOv_chipkaart_producten(ArrayList<OvChipkaartProduct> ov_chipkaart_producten) {
         this.ov_chipkaart_producten = ov_chipkaart_producten;
-    }
-
-    public void addOv_chipkaart_producten(Ov_chipkaart_product ov_chipkaart_product) {
-        this.ov_chipkaart_producten.add(ov_chipkaart_product);
     }
 }

@@ -20,12 +20,12 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     public boolean save(Reiziger reiziger) throws SQLException {
         String q = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum, adres) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pst = conn.prepareStatement(q);
-        pst.setInt(1, reiziger.getReiziger_id());
+        pst.setInt(1, reiziger.getReizigerId());
         pst.setString(2, reiziger.getVoorletters());
         pst.setString(3, reiziger.getTussenvoegsel());
         pst.setString(4, reiziger.getAchternaam());
         pst.setDate(5, reiziger.getGeboortedatum());
-        pst.setInt(6, reiziger.getReiziger_id());
+        pst.setInt(6, reiziger.getReizigerId());
         pst.executeQuery();
         return true;
     }
@@ -33,13 +33,13 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     public boolean update(Reiziger reiziger) throws SQLException {
         String q = "UPDATE reiziger SET reiziger_id = ?, voorletters = ?, tussenvoegsel = ?, achternaam = ?, geboortedatum = ?, adres = ? WHERE reiziger_id = ?";
         PreparedStatement pst = conn.prepareStatement(q);
-        pst.setInt(1, reiziger.getReiziger_id());
+        pst.setInt(1, reiziger.getReizigerId());
         pst.setString(2, reiziger.getVoorletters());
         pst.setString(3, reiziger.getTussenvoegsel());
         pst.setString(4, reiziger.getAchternaam());
         pst.setDate(5, reiziger.getGeboortedatum());
-        pst.setInt(6, reiziger.getReiziger_id());
-        pst.setInt(7, reiziger.getReiziger_id());
+        pst.setInt(6, reiziger.getReizigerId());
+        pst.setInt(7, reiziger.getReizigerId());
         pst.executeQuery();
         return true;
     }
@@ -47,7 +47,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     public boolean delete(Reiziger reiziger) throws SQLException {
         String q = "DELETE FROM reiziger WHERE reiziger_id = ? AND voorletters = ? AND tussenvoegsel = ? AND achternaam = ? AND geboortedatum = ?";
         PreparedStatement pst = conn.prepareStatement(q);
-        pst.setInt(1, reiziger.getReiziger_id());
+        pst.setInt(1, reiziger.getReizigerId());
         pst.setString(2, reiziger.getVoorletters());
         pst.setString(3, reiziger.getTussenvoegsel());
         pst.setString(4, reiziger.getAchternaam());

@@ -11,7 +11,8 @@ public class Reiziger {
     private Date geboortedatum;
 
     private Adres adres;
-    private ArrayList<Ov_chipkaart> ov_chipkaarten = new ArrayList<>();
+    private ArrayList<OVChipkaart> ovChipkaarten = new ArrayList<>();
+
 
     public Reiziger(int reiziger_id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum) {
         this.id = reiziger_id;
@@ -21,8 +22,8 @@ public class Reiziger {
         this.geboortedatum = geboortedatum;
     }
 
-    public Reiziger(int reiziger_id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum, Adres adres) {
-        this.id = reiziger_id;
+    public Reiziger(int reizigerId, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum, Adres adres) {
+        this.id = reizigerId;
         this.voorletters = voorletters;
         this.tussenvoegsel = tussenvoegsel;
         this.achternaam = achternaam;
@@ -38,69 +39,26 @@ public class Reiziger {
         this.adres = adres;
     }
 
-    public int getReiziger_id() {
+    public int getReizigerId() {
         return id;
-    }
-
-    public void setReiziger_id(int reiziger_id) {
-        this.id = reiziger_id;
     }
 
     public String getVoorletters() {
         return voorletters;
     }
 
-    public void setVoorletters(String voorletters) {
-        this.voorletters = voorletters;
-    }
-
     public String getTussenvoegsel() {
         return tussenvoegsel;
-    }
-
-    public void setTussenvoegsel(String tussenvoegsel) {
-        this.tussenvoegsel = tussenvoegsel;
     }
 
     public String getAchternaam() {
         return achternaam;
     }
 
-    public void setAchternaam(String achternaam) {
-        this.achternaam = achternaam;
-    }
-
     public Date getGeboortedatum() {
         return geboortedatum;
     }
 
-    public String getNaam() {
-        if (tussenvoegsel == "null" || tussenvoegsel == null || tussenvoegsel == "") {
-            return voorletters + " " + achternaam;
-        } else return voorletters + " " + tussenvoegsel + " " + achternaam;
-    }
-
-    public void setGeboortedatum(Date geboortedatum) {
-        this.geboortedatum = geboortedatum;
-    }
-
-
-
-    public ArrayList<Ov_chipkaart> getOv_chipkaarten() {
-        return ov_chipkaarten;
-    }
-
-    public void setOv_chipkaarten(ArrayList<Ov_chipkaart> ov_chipkaarten) {
-        this.ov_chipkaarten = ov_chipkaarten;
-    }
-
-    public void addOv_Chipkaarten(Ov_chipkaart ov_chipkaart) {
-        this.ov_chipkaarten.add(ov_chipkaart);
-    }
-
-
-
-    @Override
     public String toString() {
         return "Reiziger{" +
                 "id=" + id +
@@ -111,20 +69,4 @@ public class Reiziger {
                 ", adres=" + adres +
                 '}';
     }
-
-    //    public Adres getAdres() {
-//        return adres;
-//    }
-//
-//    public void setAdres(Adres adres) {
-//        this.adres = adres;
-//    }
-//
-//    public ArrayList<Ov_chipkaart> getOv_chipkaart() {
-//        return ov_chipkaart;
-//    }
-//
-//    public void setOv_chipkaart(ArrayList<Ov_chipkaart> ov_chipkaart) {
-//        this.ov_chipkaart = ov_chipkaart;
-//    }
 }

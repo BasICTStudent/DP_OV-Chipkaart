@@ -47,7 +47,7 @@ public class testReizigerDAO {
 
             //dit is voor het terug zetten van sietske (op id=77) naar het oude formaat
             try {
-                sietske.setAdres(rdao.findByid(sietske.getReiziger_id()).getAdres());
+                sietske.setAdres(rdao.findByid(sietske.getReizigerId()).getAdres());
                 rdao.update(sietske);
             } catch (Exception ea) {
                 //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
