@@ -3,7 +3,9 @@ package dao;
 import domain.OVChipkaart;
 import domain.Product;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ProductDAO {
@@ -13,9 +15,11 @@ public interface ProductDAO {
 
     boolean delete(Product product) throws SQLException;
 
-    Product findByProductNummer(int productNummer) throws SQLException;
+    Product findByProduct(int productNummer) throws SQLException;
 
     List<Product> findByOVChipkaart(OVChipkaart ovChipkaart) throws SQLException;
 
     List<Product> findAll() throws SQLException;
+
+    Connection getConn();
 }

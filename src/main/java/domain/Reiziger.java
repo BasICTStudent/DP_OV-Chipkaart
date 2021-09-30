@@ -1,6 +1,11 @@
 package domain;
 
+import dao.ReizigerDAO;
+import daosql.OVChipkaartDAOPsql;
+
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Reiziger {
@@ -57,6 +62,10 @@ public class Reiziger {
 
     public Date getGeboortedatum() {
         return geboortedatum;
+    }
+
+    public void addOVChipkaart(OVChipkaart ovChipkaart, Connection conn) throws SQLException {
+        new OVChipkaartDAOPsql(conn).save(ovChipkaart);
     }
 
     public String toString() {

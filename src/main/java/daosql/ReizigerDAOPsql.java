@@ -17,6 +17,10 @@ public class ReizigerDAOPsql implements ReizigerDAO {
         this.adao = new AdresDAOPsql(conn);
     }
 
+    public Connection getConn() {
+        return conn;
+    }
+
     public boolean save(Reiziger reiziger) throws SQLException {
         String q = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum, adres) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pst = conn.prepareStatement(q);

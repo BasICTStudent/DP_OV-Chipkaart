@@ -1,9 +1,11 @@
 package test;
 
 import dao.OVChipkaartDAO;
+import daosql.ReizigerDAOPsql;
 import domain.OVChipkaart;
 import domain.Reiziger;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,7 +37,8 @@ public class testOv_chipkaartDAO {
         try {
             // Maak een nieuwe ov_chipkaarten aan en persisteer deze in de database
             System.out.print("Eerst " + ov_chipkaarten.size() + " ov_chipkaarten, voor Ov_chipkaartDAO.save() \n");
-            odao.save(OVChipkaart001);
+            new ReizigerDAOPsql(odao.getConn()).findByid(100).addOVChipkaart(OVChipkaart001, odao.getConn());
+//            odao.save(OVChipkaart001);
         } catch (Exception e) {
             ov_chipkaarten = odao.findAll();
             System.out.println("NA: " + ov_chipkaarten.size() + " ov_chipkaarten");

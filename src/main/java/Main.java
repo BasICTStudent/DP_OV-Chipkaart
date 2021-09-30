@@ -1,8 +1,11 @@
 import dao.AdresDAO;
 import dao.OVChipkaartDAO;
+import dao.ProductDAO;
 import daosql.AdresDAOPsql;
 import dao.ReizigerDAO;
 import daosql.OVChipkaartDAOPsql;
+//import daosql.ProductDAOPsql;
+import daosql.ProductDAOPsql;
 import daosql.ReizigerDAOPsql;
 import test.*;
 
@@ -25,12 +28,15 @@ public class Main {
         testReizigerDAO(rdao);
 
         AdresDAO adao = new AdresDAOPsql(main.getConnection());
-        main.testAdresDAO(adao);
+        testAdresDAO(adao);
 
         testReizigerEnAdresDAO(rdao);
 
-        OVChipkaartDAO odao = new OVChipkaartDAOPsql(main.getConnection());
-        testOv_chipkaartDAO(odao);
+        OVChipkaartDAO ovcdo = new OVChipkaartDAOPsql(main.getConnection());
+        testOv_chipkaartDAO(ovcdo);
+
+        ProductDAO pdao = new ProductDAOPsql(main.getConnection());
+        testProductDAO(pdao);
 
         main.closeConnection();
     }
@@ -57,5 +63,9 @@ public class Main {
 
     private static void testOv_chipkaartDAO(OVChipkaartDAO odao) throws SQLException {
         testOv_chipkaartDAO.testOv_chipkaartDAO(odao);
+    }
+
+    private static void testProductDAO(ProductDAO pdao) throws SQLException {
+        testProductDAO.testProductDAO(pdao);
     }
 }

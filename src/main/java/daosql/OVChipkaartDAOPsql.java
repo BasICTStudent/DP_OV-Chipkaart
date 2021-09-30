@@ -17,6 +17,10 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
         this.rdao = new ReizigerDAOPsql(conn);
     }
 
+    public Connection getConn() {
+        return conn;
+    }
+
     public boolean save(OVChipkaart ovChipkaart) throws SQLException {
         String q = "INSERT INTO ov_chipkaart (kaart_nummer, geldig_tot, klasse, saldo, reiziger_id) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement pst = conn.prepareStatement(q);
@@ -90,6 +94,25 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             OvList.add(new OVChipkaart(kaart_nummer, geldig_tot, klasse, saldo, reiziger_id, rdao.findByid(reiziger_id)));
         }
         return OvList;
+    }
+
+    public ArrayList<OVChipkaart> findByProductNummer(int productNummer) throws SQLException {
+        List<OVChipkaart> ovChipkaarts = new ArrayList<OVChipkaart>();
+        String q = "SELECT * FROM ov_chipkaart JOIN ov_chipkaart_product ON (ov_chipkaart.kaart_nummer = ov_chipkaart_product.kaart_nummer) JOIN product ON (product.product_nummer = ov_chipkaart_product.product_nummer) WHERE  product.product_nummer = ?;";
+        PreparedStatement pst = conn.prepareStatement(q);
+        pst.setInt(1, productNummer);
+        ResultSet myRs = pst.executeQuery();
+
+        while (myRs.next()) {
+            int kaart_nummer = myRs.getInt("kaart_nummer");
+            Date geldig_tot = myRs.getDate("geldig_tot");
+            int klasse = myRs.getInt("klasse");
+            int saldo = myRs.getInt("saldo");
+            int reiziger_id = myRs.getInt("reiziger_id");
+
+            ovChipkaarts.add(new OVChipkaart(kaart_nummer, geldig_tot, klasse, saldo, reiziger_id, rdao.findByid(reiziger_id)));
+        }
+        return (ArrayList<OVChipkaart>) ovChipkaarts;
     }
 
     public List<OVChipkaart> findAll() throws SQLException {
