@@ -99,8 +99,8 @@ public class OVChipkaart {
                 ", saldo='" + saldo + '\'' +
                 ", reiziger_id=" + reizigerId +
                 ", reiziger=" + reiziger +
-//                ", productNummer=" + productNummers +
-//                ", ovChipkaartProduct=" + producten +
+                ", productNummer=" + productNummers +
+                ", ovChipkaartProduct=" + producten +
                 '}';
     }
 }

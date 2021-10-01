@@ -19,8 +19,12 @@ public class testOv_chipkaartDAO {
     * @throws SQLException
     */
     public static void testOv_chipkaartDAO(OVChipkaartDAO odao) throws SQLException {
+        Connection connection = odao.getConn();
+        ReizigerDAOPsql rdao = new ReizigerDAOPsql(connection);
+
         // predifined values
         String gbdatum = "2000-01-10";
+        Reiziger reiziger = rdao.findByid(100);
         OVChipkaart OVChipkaart001 = new OVChipkaart(100100, Date.valueOf("1999-10-10"), 1, 123.34, 100);
         Reiziger reiziger001 = new Reiziger(77, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
 
@@ -37,8 +41,7 @@ public class testOv_chipkaartDAO {
         try {
             // Maak een nieuwe ov_chipkaarten aan en persisteer deze in de database
             System.out.print("Eerst " + ov_chipkaarten.size() + " ov_chipkaarten, voor Ov_chipkaartDAO.save() \n");
-            new ReizigerDAOPsql(odao.getConn()).findByid(100).addOVChipkaart(OVChipkaart001, odao.getConn());
-//            odao.save(OVChipkaart001);
+            reiziger.addOVChipkaart(OVChipkaart001, connection);
         } catch (Exception e) {
             ov_chipkaarten = odao.findAll();
             System.out.println("NA: " + ov_chipkaarten.size() + " ov_chipkaarten");
@@ -54,7 +57,7 @@ public class testOv_chipkaartDAO {
 
             //dit is voor het terug zetten van OVChipkaart001 (op kaartnummer=100100) naar het oude formaat
             try {
-                odao.update(OVChipkaart001);
+                reiziger.updateOVChipkaart(OVChipkaart001, connection);
             } catch (Exception ea) {
                 //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
             }
@@ -62,7 +65,7 @@ public class testOv_chipkaartDAO {
             System.out.println("VOOR: " + odao.findByOVChipkaart(i));
 
             try {
-                odao.update(OVChipkaartUP);
+                reiziger.updateOVChipkaart(OVChipkaartUP, connection);
             } catch (Exception ea) {
                 //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
                 System.out.println("NA: " + odao.findByOVChipkaart(i));
@@ -82,7 +85,7 @@ public class testOv_chipkaartDAO {
             System.out.println("VOOR: " + odao.findByOVChipkaart(i));
 
             try {
-                odao.delete(OVChipkaartUP);
+                reiziger.deleteOVChipkaart(OVChipkaartUP, connection);
             } catch (Exception ea) {
                 //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
             }

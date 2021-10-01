@@ -73,6 +73,8 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             int klasse = myRs.getInt("klasse");
             int saldo = myRs.getInt("saldo");
             int reiziger_id = myRs.getInt("reiziger_id");
+
+
             return new OVChipkaart(kaart_nummer, geldig_tot, klasse, saldo, reiziger_id, rdao.findByid(reiziger_id));
         }
         return null;
@@ -91,6 +93,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             int klasse = myRs.getInt("klasse");
             int saldo = myRs.getInt("saldo");
             int reiziger_id = myRs.getInt("reiziger_id");
+
             OvList.add(new OVChipkaart(kaart_nummer, geldig_tot, klasse, saldo, reiziger_id, rdao.findByid(reiziger_id)));
         }
         return OvList;
@@ -127,6 +130,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             int klasse = myRs.getInt("klasse");
             int saldo = myRs.getInt("saldo");
             int reiziger_id = myRs.getInt("reiziger_id");
+
             OvList.add(new OVChipkaart(kaart_nummer, geldig_tot, klasse, saldo, reiziger_id, rdao.findByid(reiziger_id)));
         }
         return OvList;

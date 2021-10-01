@@ -64,10 +64,6 @@ public class Reiziger {
         return geboortedatum;
     }
 
-    public void addOVChipkaart(OVChipkaart ovChipkaart, Connection conn) throws SQLException {
-        new OVChipkaartDAOPsql(conn).save(ovChipkaart);
-    }
-
     public String toString() {
         return "Reiziger{" +
                 "id=" + id +
@@ -77,5 +73,18 @@ public class Reiziger {
                 ", geboortedatum='" + geboortedatum + '\'' +
                 ", adres=" + adres +
                 '}';
+    }
+
+
+    public void addOVChipkaart(OVChipkaart ovChipkaart, Connection conn) throws SQLException {
+        new OVChipkaartDAOPsql(conn).save(ovChipkaart);
+    }
+
+    public void updateOVChipkaart(OVChipkaart ovChipkaart, Connection conn) throws SQLException {
+        new OVChipkaartDAOPsql(conn).update(ovChipkaart);
+    }
+
+    public void deleteOVChipkaart(OVChipkaart ovChipkaart, Connection conn) throws SQLException {
+        new OVChipkaartDAOPsql(conn).delete(ovChipkaart);
     }
 }
