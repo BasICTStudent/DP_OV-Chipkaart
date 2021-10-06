@@ -1,6 +1,10 @@
 package domain;
 
+import daosql.OVChipkaartDAOPsql;
+
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OVChipkaart {
@@ -11,7 +15,6 @@ public class OVChipkaart {
 
     private int reizigerId;
     private Reiziger reiziger;
-    private ArrayList<Integer> productNummers = new ArrayList<>();
     private ArrayList<Product> producten = new ArrayList<>();
 
 
@@ -32,14 +35,13 @@ public class OVChipkaart {
         this.reiziger = reiziger;
     }
 
-    public OVChipkaart(int kaartNummer, Date geldigTot, int klasse, double saldo, int reizigerId, Reiziger reiziger, ArrayList<Integer> productNummers, ArrayList<Product> producten) {
+    public OVChipkaart(int kaartNummer, Date geldigTot, int klasse, double saldo, int reizigerId, Reiziger reiziger, ArrayList<Product> producten) {
         this.kaartNummer = kaartNummer;
         this.geldigTot = geldigTot;
         this.klasse = klasse;
         this.saldo = saldo;
         this.reizigerId = reizigerId;
         this.reiziger = reiziger;
-        this.productNummers = productNummers;
         this.producten = producten;
     }
 
@@ -63,32 +65,54 @@ public class OVChipkaart {
         return reizigerId;
     }
 
-    public void setKaartNummer(int kaartNummer) {
-        this.kaartNummer = kaartNummer;
-    }
-
-    public void setGeldigTot(Date geldigTot) {
-        this.geldigTot = geldigTot;
-    }
-
-    public void setKlasse(int klasse) {
-        this.klasse = klasse;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-
-    public void setReizigerId(int reizigerId) {
-        this.reizigerId = reizigerId;
-    }
-
     public Reiziger getReiziger() {
         return reiziger;
     }
 
     public void setReiziger(Reiziger reiziger) {
         this.reiziger = reiziger;
+    }
+
+    public void addProduct(Product product, Connection conn) throws SQLException {
+        producten.add(product);
+        OVChipkaartDAOPsql ovcdao = new OVChipkaartDAOPsql(conn);
+
+        if (ovcdao.findByOVChipkaart(kaartNummer, false) == null) {
+            System.out.println(ovcdao.findByOVChipkaart(kaartNummer, false));
+            ovcdao.save(this);
+        } else {
+            try {
+                ovcdao.update(this);
+            } catch (Exception e) {
+                //update geeft standaard een error omdat er geen resultaat terug geeft.
+            }
+        }
+    }
+
+    public void updateProduct(Product product, Connection conn) throws SQLException {
+        OVChipkaartDAOPsql ovcdao = new OVChipkaartDAOPsql(conn);
+
+        for (Product product1 : producten) {
+            if (product1.getProductNummer() == product.getProductNummer()) {
+                producten.set(producten.indexOf(product1), product);
+            }
+        }
+        try {
+            ovcdao.update(this);
+        } catch (Exception e) {
+            //update geeft standaard een error omdat er geen resultaat terug geeft.
+        }
+    }
+
+    public void deleteProduct(Product product, Connection conn) throws SQLException {
+        OVChipkaartDAOPsql ovcdao = new OVChipkaartDAOPsql(conn);
+
+        producten.remove(product);
+        try {
+            ovcdao.update(this);
+        } catch (Exception e) {
+            //update geeft standaard een error omdat er geen resultaat terug geeft.
+        }
     }
 
     public String toString() {
@@ -99,8 +123,7 @@ public class OVChipkaart {
                 ", saldo='" + saldo + '\'' +
                 ", reiziger_id=" + reizigerId +
                 ", reiziger=" + reiziger +
-                ", productNummer=" + productNummers +
-                ", ovChipkaartProduct=" + producten +
+                ", Producten=" + producten +
                 '}';
     }
 }

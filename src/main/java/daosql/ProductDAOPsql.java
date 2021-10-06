@@ -17,7 +17,7 @@ public class ProductDAOPsql implements ProductDAO {
     }
 
     public boolean save(Product product) throws SQLException {
-        String q = "INSERT INTO product (product_nummer, naam, beschrijving, prijs) VALUES (?, ?, ?, ?)"; //kaart_nummer
+        String q = "INSERT INTO product (product_nummer, naam, beschrijving, prijs) VALUES (?, ?, ?, ?)";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, product.getProductNummer());
         pst.setString(2, product.getNaam());
@@ -29,7 +29,7 @@ public class ProductDAOPsql implements ProductDAO {
     }
 
     public boolean update(Product product) throws SQLException {
-        String q = "UPDATE product SET product_nummer = ?, naam = ?, beschrijving = ?, prijs = ? WHERE product_nummer = ?"; //, kaart_nummer = ?
+        String q = "UPDATE product SET product_nummer = ?, naam = ?, beschrijving = ?, prijs = ? WHERE product_nummer = ?";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, product.getProductNummer());
         pst.setString(2, product.getNaam());
@@ -42,7 +42,7 @@ public class ProductDAOPsql implements ProductDAO {
     }
 
     public boolean delete(Product product) throws SQLException {
-        String q = "DELETE FROM product WHERE product_nummer = ? AND naam = ? AND beschrijving = ? AND prijs = ?"; //AND kaart_nummer = ?
+        String q = "DELETE FROM product WHERE product_nummer = ? AND naam = ? AND beschrijving = ? AND prijs = ?";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, product.getProductNummer());
         pst.setString(2, product.getNaam());
@@ -53,7 +53,7 @@ public class ProductDAOPsql implements ProductDAO {
         return true;
     }
 
-    public Product findByProduct(int productNummer) throws SQLException {
+    public Product findByProduct(int productNummer, boolean vanOVC) throws SQLException {
         String q = "SELECT * FROM product WHERE product_nummer = ?;";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, productNummer);
@@ -65,17 +65,17 @@ public class ProductDAOPsql implements ProductDAO {
             String beschrijving = myRs.getString("beschrijving");
             int prijs = myRs.getInt("prijs");
 
-            ArrayList<Integer> kaartNummers = new ArrayList<>();
-            ArrayList<OVChipkaart> ovChipkaarten = ovcdao.findByProductNummer(productnummer);
-            for (OVChipkaart ovChipkaart : ovChipkaarten) {
-                kaartNummers.add(ovChipkaart.getKaartNummer());
+            if (vanOVC) {
+                return new Product(productnummer, naam, beschrijving, prijs);
+            } else {
+                ArrayList<OVChipkaart> ovChipkaarten = ovcdao.findByProductNummer(productnummer, true);
+                return new Product(productnummer, naam, beschrijving, prijs, ovChipkaarten);
             }
-            return new Product(productnummer, naam, beschrijving, prijs, kaartNummers, ovChipkaarten);
         }
         return null;
     }
 
-    public List<Product> findByOVChipkaart(OVChipkaart ovChipkaart) throws SQLException {
+    public List<Product> findByOVChipkaart(OVChipkaart ovChipkaart, boolean vanOVC) throws SQLException {
         List<Product> productList = new ArrayList<Product>();
         String q = "SELECT * FROM ov_chipkaart JOIN ov_chipkaart_product ON (ov_chipkaart.kaart_nummer = ov_chipkaart_product.kaart_nummer) JOIN product ON (product.product_nummer = ov_chipkaart_product.product_nummer) WHERE ov_chipkaart.kaart_nummer = ?;";
         PreparedStatement pst = conn.prepareStatement(q);
@@ -88,17 +88,17 @@ public class ProductDAOPsql implements ProductDAO {
             String beschrijving = myRs.getString("beschrijving");
             int prijs = myRs.getInt("prijs");
 
-            ArrayList<Integer> kaartNummers = new ArrayList<>();
-            ArrayList<OVChipkaart> ovChipkaarten = ovcdao.findByProductNummer(productnummer);
-            for (OVChipkaart ovChipkaart1 : ovChipkaarten) {
-                kaartNummers.add(ovChipkaart1.getKaartNummer());
+            if (vanOVC) {
+                productList.add(new Product(productnummer, naam, beschrijving, prijs));
+            } else {
+                ArrayList<OVChipkaart> ovChipkaarten = ovcdao.findByProductNummer(productnummer, true);
+                productList.add(new Product(productnummer, naam, beschrijving, prijs, ovChipkaarten));
             }
-            productList.add(new Product(productnummer, naam, beschrijving, prijs, kaartNummers, ovChipkaarten)); //, ovChipkaartProducten
         }
         return productList;
     }
 
-    public List<Product> findAll() throws SQLException {
+    public List<Product> findAll(boolean vanOVC) throws SQLException {
         List<Product> productList = new ArrayList<Product>();
         String q = "SELECT * FROM product";
         PreparedStatement pst = conn.prepareStatement(q);
@@ -110,12 +110,12 @@ public class ProductDAOPsql implements ProductDAO {
             String beschrijving = myRs.getString("beschrijving");
             int prijs = myRs.getInt("prijs");
 
-            ArrayList<Integer> kaartNummers = new ArrayList<>();
-            ArrayList<OVChipkaart> ovChipkaarten = ovcdao.findByProductNummer(productnummer);
-            for (OVChipkaart ovChipkaart : ovChipkaarten) {
-                kaartNummers.add(ovChipkaart.getKaartNummer());
+            if (vanOVC) {
+                productList.add(new Product(productnummer, naam, beschrijving, prijs));
+            } else {
+                ArrayList<OVChipkaart> ovChipkaarten = ovcdao.findByProductNummer(productnummer, true);
+                productList.add(new Product(productnummer, naam, beschrijving, prijs, ovChipkaarten));
             }
-            productList.add(new Product(productnummer, naam, beschrijving, prijs, kaartNummers, ovChipkaarten));
         }
         return productList;
     }

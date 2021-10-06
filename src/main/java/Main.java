@@ -38,6 +38,8 @@ public class Main {
         ProductDAO pdao = new ProductDAOPsql(main.getConnection());
         testProductDAO(pdao);
 
+        testReizger_OVChipkaar_Product.testReizger_OVChipkaar_Product(main.connection);
+
         main.closeConnection();
     }
 

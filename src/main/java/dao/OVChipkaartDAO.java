@@ -15,13 +15,13 @@ public interface OVChipkaartDAO {
 
     boolean delete(OVChipkaart ovChipkaart) throws SQLException;
 
-    OVChipkaart findByOVChipkaart(int kaartNummer) throws SQLException;
+    OVChipkaart findByOVChipkaart(int kaartNummer, boolean vanPr) throws SQLException;
 
-    List<OVChipkaart> findByReiziger(Reiziger reiziger) throws SQLException;
+    List<OVChipkaart> findByReiziger(Reiziger reiziger, boolean vanPr) throws SQLException;
 
-    ArrayList<OVChipkaart> findByProductNummer(int productNummer) throws SQLException;
+    ArrayList<OVChipkaart> findByProductNummer(int productNumme, boolean vanPr) throws SQLException;
 
-    List<OVChipkaart> findAll() throws SQLException;
+    List<OVChipkaart> findAll(boolean vanPr) throws SQLException;
 
     Connection getConn();
 }

@@ -1,8 +1,6 @@
 package domain;
 
-import dao.ReizigerDAO;
 import daosql.OVChipkaartDAOPsql;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -86,5 +84,17 @@ public class Reiziger {
 
     public void deleteOVChipkaart(OVChipkaart ovChipkaart, Connection conn) throws SQLException {
         new OVChipkaartDAOPsql(conn).delete(ovChipkaart);
+    }
+
+    public void addProduct(OVChipkaart ovChipkaart, Product product, Connection conn) throws SQLException {
+        ovChipkaart.addProduct(product, conn);
+    }
+
+    public void updateProduct(OVChipkaart ovChipkaart, Product product, Connection conn) throws SQLException {
+        ovChipkaart.updateProduct(product, conn);
+    }
+
+    public void deleteProduct(OVChipkaart ovChipkaart, Product product, Connection conn) throws SQLException {
+        ovChipkaart.deleteProduct(product, conn);
     }
 }

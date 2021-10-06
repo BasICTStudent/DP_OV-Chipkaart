@@ -31,7 +31,7 @@ public class testOv_chipkaartDAO {
         System.out.println("\n\n\n---------- Test Ov_chipkaartDAO -------------");
 
         // Haal alle ov_chipkaarten op uit de database
-        List<OVChipkaart> ov_chipkaarten = odao.findAll();
+        List<OVChipkaart> ov_chipkaarten = odao.findAll(false);
         System.out.println("[Test] Ov_chipkaartDAO.findAll() geeft de volgende ov_chipkaarten:");
         for (OVChipkaart OVChipkaart : ov_chipkaarten) {
             System.out.println(OVChipkaart);
@@ -43,7 +43,7 @@ public class testOv_chipkaartDAO {
             System.out.print("Eerst " + ov_chipkaarten.size() + " ov_chipkaarten, voor Ov_chipkaartDAO.save() \n");
             reiziger.addOVChipkaart(OVChipkaart001, connection);
         } catch (Exception e) {
-            ov_chipkaarten = odao.findAll();
+            ov_chipkaarten = odao.findAll(false);
             System.out.println("NA: " + ov_chipkaarten.size() + " ov_chipkaarten");
         }
 
@@ -62,13 +62,13 @@ public class testOv_chipkaartDAO {
                 //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
             }
 
-            System.out.println("VOOR: " + odao.findByOVChipkaart(i));
+            System.out.println("VOOR: " + odao.findByOVChipkaart(i, false));
 
             try {
                 reiziger.updateOVChipkaart(OVChipkaartUP, connection);
             } catch (Exception ea) {
                 //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
-                System.out.println("NA: " + odao.findByOVChipkaart(i));
+                System.out.println("NA: " + odao.findByOVChipkaart(i, false));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -76,13 +76,13 @@ public class testOv_chipkaartDAO {
 
         // vind een bestaande ov_chipkaart in de database op kaartnummer
         System.out.println("\n[Test] Ov_chipkaartDAO.findByid() geeft het volgende (bij kaartnummer=100100):");
-        System.out.println(odao.findByOVChipkaart(i));
+        System.out.println(odao.findByOVChipkaart(i, false));
 
         try {
             // Delete een bestaande ov_chipkaart in de database
             System.out.println("\n[Test] Ov_chipkaartDAO.delete() geeft de volgende verandering:");
             System.out.print("Zie ov_chipkaart op kaartnummer 100100 voor en na Ov_chipkaartDAO.delete()\n");
-            System.out.println("VOOR: " + odao.findByOVChipkaart(i));
+            System.out.println("VOOR: " + odao.findByOVChipkaart(i, false));
 
             try {
                 reiziger.deleteOVChipkaart(OVChipkaartUP, connection);
@@ -90,7 +90,7 @@ public class testOv_chipkaartDAO {
                 //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
             }
 
-            System.out.println("NA: " + odao.findByOVChipkaart(i));
+            System.out.println("NA: " + odao.findByOVChipkaart(i, false));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -98,7 +98,7 @@ public class testOv_chipkaartDAO {
         try {
             // vind bestaande ov_chipkaart(en) in de database op reiziger
             System.out.println("\n[Test] AdresDAO.findByReiziger() geeft het volgende (bij een reiziger met het id=77):");
-            System.out.println(odao.findByReiziger(reiziger001));
+            System.out.println(odao.findByReiziger(reiziger001, false));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -106,7 +106,7 @@ public class testOv_chipkaartDAO {
         try {
             // vind alle ov_chipkaart(en) in de database
             System.out.println("\n[Test] Ov_chipkaartDAO.findAll() geeft het volgende:");
-            System.out.println(odao.findAll());
+            System.out.println(odao.findAll(false));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
