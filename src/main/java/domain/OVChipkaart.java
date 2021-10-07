@@ -1,10 +1,12 @@
 package domain;
 
-import daosql.OVChipkaartDAOPsql;
-
+import daosql.OVChipkaartProductDAOPsql;
+import daosql.ProductDAOPsql;
+import org.postgresql.util.PSQLException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class OVChipkaart {
@@ -74,44 +76,47 @@ public class OVChipkaart {
     }
 
     public void addProduct(Product product, Connection conn) throws SQLException {
-        producten.add(product);
-        OVChipkaartDAOPsql ovcdao = new OVChipkaartDAOPsql(conn);
-
-        if (ovcdao.findByOVChipkaart(kaartNummer, false) == null) {
-            System.out.println(ovcdao.findByOVChipkaart(kaartNummer, false));
-            ovcdao.save(this);
-        } else {
+        ProductDAOPsql psql = new ProductDAOPsql(conn);
+        OVChipkaartProductDAOPsql ovcpdao = new OVChipkaartProductDAOPsql(conn);
+        try {
+            psql.save(product);
+        } catch (PSQLException exception) {
             try {
-                ovcdao.update(this);
-            } catch (Exception e) {
-                //update geeft standaard een error omdat er geen resultaat terug geeft.
+                ovcpdao.save(new OvChipkaartProduct(kaartNummer, product.getProductNummer(), "actief", Date.valueOf(LocalDate.now()), this, product));
+            } catch (PSQLException exception1) {
+                //save geeft standaard niks terug (en geeft dus een error)
             }
+            //save geeft standaard niks terug (en geeft dus een error)
         }
     }
 
     public void updateProduct(Product product, Connection conn) throws SQLException {
-        OVChipkaartDAOPsql ovcdao = new OVChipkaartDAOPsql(conn);
-
-        for (Product product1 : producten) {
-            if (product1.getProductNummer() == product.getProductNummer()) {
-                producten.set(producten.indexOf(product1), product);
-            }
-        }
+        ProductDAOPsql psql = new ProductDAOPsql(conn);
+        OVChipkaartProductDAOPsql ovcpdao = new OVChipkaartProductDAOPsql(conn);
         try {
-            ovcdao.update(this);
-        } catch (Exception e) {
-            //update geeft standaard een error omdat er geen resultaat terug geeft.
+            psql.update(product);
+        } catch (PSQLException exception) {
+            try {
+                ovcpdao.save(new OvChipkaartProduct(kaartNummer, product.getProductNummer(), "actief", Date.valueOf(LocalDate.now()), this, product));
+            } catch (PSQLException exception1) {
+                //save geeft standaard niks terug (en geeft dus een error)
+            }
+            //save geeft standaard niks terug (en geeft dus een error)
         }
     }
 
     public void deleteProduct(Product product, Connection conn) throws SQLException {
-        OVChipkaartDAOPsql ovcdao = new OVChipkaartDAOPsql(conn);
-
-        producten.remove(product);
+        ProductDAOPsql psql = new ProductDAOPsql(conn);
+        OVChipkaartProductDAOPsql ovcpdao = new OVChipkaartProductDAOPsql(conn);
         try {
-            ovcdao.update(this);
-        } catch (Exception e) {
-            //update geeft standaard een error omdat er geen resultaat terug geeft.
+            psql.save(product);
+        } catch (PSQLException exception) {
+            try {
+                ovcpdao.delete(new OvChipkaartProduct(kaartNummer, product.getProductNummer(), "actief", Date.valueOf(LocalDate.now()), this, product));
+            } catch (PSQLException exception1) {
+                //save geeft standaard niks terug (en geeft dus een error)
+            }
+            //save geeft standaard niks terug (en geeft dus een error)
         }
     }
 

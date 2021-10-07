@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ProductDAO {
-    boolean save(Product product) throws SQLException;
+    void save(Product product) throws SQLException;
 
-    boolean update(Product product) throws SQLException;
+    void update(Product product) throws SQLException;
 
-    boolean delete(Product product) throws SQLException;
+    void delete(Product product) throws SQLException;
 
     Product findByProduct(int productNummer, boolean vanOVC) throws SQLException;
 

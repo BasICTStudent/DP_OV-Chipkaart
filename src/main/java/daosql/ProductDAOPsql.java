@@ -16,7 +16,7 @@ public class ProductDAOPsql implements ProductDAO {
         this.ovcdao = new OVChipkaartDAOPsql(conn);
     }
 
-    public boolean save(Product product) throws SQLException {
+    public void save(Product product) throws SQLException {
         String q = "INSERT INTO product (product_nummer, naam, beschrijving, prijs) VALUES (?, ?, ?, ?)";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, product.getProductNummer());
@@ -25,10 +25,9 @@ public class ProductDAOPsql implements ProductDAO {
         pst.setDouble(4, product.getPrijs());
 
         pst.executeQuery();
-        return true;
     }
 
-    public boolean update(Product product) throws SQLException {
+    public void update(Product product) throws SQLException {
         String q = "UPDATE product SET product_nummer = ?, naam = ?, beschrijving = ?, prijs = ? WHERE product_nummer = ?";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, product.getProductNummer());
@@ -38,10 +37,9 @@ public class ProductDAOPsql implements ProductDAO {
         pst.setInt(5, product.getProductNummer());
 
         pst.executeQuery();
-        return true;
     }
 
-    public boolean delete(Product product) throws SQLException {
+    public void delete(Product product) throws SQLException {
         String q = "DELETE FROM product WHERE product_nummer = ? AND naam = ? AND beschrijving = ? AND prijs = ?";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, product.getProductNummer());
@@ -50,7 +48,6 @@ public class ProductDAOPsql implements ProductDAO {
         pst.setDouble(4, product.getPrijs());
 
         pst.executeQuery();
-        return true;
     }
 
     public Product findByProduct(int productNummer, boolean vanOVC) throws SQLException {

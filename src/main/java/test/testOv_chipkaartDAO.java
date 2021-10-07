@@ -48,6 +48,7 @@ public class testOv_chipkaartDAO {
         }
 
         int i = 100100;
+        int i2 = 35283;
         OVChipkaart OVChipkaartUP = new OVChipkaart(100100, Date.valueOf("1987-12-21"), 2, 240.51, 1);
 
         try {
@@ -75,8 +76,8 @@ public class testOv_chipkaartDAO {
         }
 
         // vind een bestaande ov_chipkaart in de database op kaartnummer
-        System.out.println("\n[Test] Ov_chipkaartDAO.findByid() geeft het volgende (bij kaartnummer=100100):");
-        System.out.println(odao.findByOVChipkaart(i, false));
+        System.out.println("\n[Test] Ov_chipkaartDAO.findByid() geeft het volgende (bij kaartnummer=35283):");
+        System.out.println(odao.findByOVChipkaart(i2, false));
 
         try {
             // Delete een bestaande ov_chipkaart in de database

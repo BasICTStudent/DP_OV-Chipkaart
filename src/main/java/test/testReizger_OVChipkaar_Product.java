@@ -24,13 +24,11 @@ public class testReizger_OVChipkaar_Product {
     */
     public static void testReizger_OVChipkaar_Product(Connection connection) throws SQLException {
         // predifined values
-        ProductDAOPsql pdao = new ProductDAOPsql(connection);
         ReizigerDAOPsql rdao = new ReizigerDAOPsql(connection);
         OVChipkaartDAOPsql ovcdao = new OVChipkaartDAOPsql(connection);
 
-        String gbdatum = "2000-01-10";
-        Product product1 = pdao.findByProduct(1, false);
-        Product product2 = new Product(1, "test", "test", 12);
+        Product product1 = new Product(202, "test", "test", 12);
+        Product product2 = new Product(202, "e", "e", 6);
         Reiziger reiziger001 = rdao.findByid(77);
         OVChipkaart ovChipkaart = ovcdao.findByOVChipkaart(77, false);
 
@@ -38,20 +36,20 @@ public class testReizger_OVChipkaar_Product {
 
         // save product in ovchipkaart
         System.out.println("[TEST]: Reiziger addProduct to ovchipkaart: ");
-        System.out.println("VOOR: " + ovChipkaart);
+        System.out.println("VOOR: " + ovcdao.findByOVChipkaart(ovChipkaart.getKaartNummer(), false));
         reiziger001.addProduct(ovChipkaart, product1, connection);
-        System.out.println("NA: " + ovChipkaart);
+        System.out.println("NA: " + ovcdao.findByOVChipkaart(ovChipkaart.getKaartNummer(), false));
 
         // update product in ovchipkaart
         System.out.println("\n[TEST]: Reiziger updateProduct from ovchipkaart: ");
-        System.out.println("VOOR: " + ovChipkaart);
+        System.out.println("VOOR: " + ovcdao.findByOVChipkaart(ovChipkaart.getKaartNummer(), false));
         reiziger001.updateProduct(ovChipkaart, product2, connection);
-        System.out.println("NA: " + ovChipkaart);
+        System.out.println("NA: " + ovcdao.findByOVChipkaart(ovChipkaart.getKaartNummer(), false));
 
         // delete product in ovchipkaart
         System.out.println("\n[TEST]: Reiziger deleteProduct from ovchipkaart: ");
-        System.out.println("VOOR: " + ovChipkaart);
+        System.out.println("VOOR: " + ovcdao.findByOVChipkaart(ovChipkaart.getKaartNummer(), false));
         reiziger001.deleteProduct(ovChipkaart, product2, connection);
-        System.out.println("NA: " + ovChipkaart);
+        System.out.println("NA: " + ovcdao.findByOVChipkaart(ovChipkaart.getKaartNummer(), false));
     }
 }
