@@ -90,8 +90,8 @@ public class Reiziger {
         ovChipkaart.addProduct(product, conn);
     }
 
-    public void updateProduct(OVChipkaart ovChipkaart, Product product, Connection conn) throws SQLException {
-        ovChipkaart.updateProduct(product, conn);
+    public void updateProduct(OVChipkaart ovChipkaart, Product product1, Product product2, Connection conn) throws SQLException {
+        ovChipkaart.updateProduct(product1, product2, conn);
     }
 
     public void deleteProduct(OVChipkaart ovChipkaart, Product product, Connection conn) throws SQLException {

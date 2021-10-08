@@ -1,18 +1,14 @@
 package test;
 
-import dao.ProductDAO;
 import daosql.OVChipkaartDAOPsql;
 import daosql.ProductDAOPsql;
 import daosql.ReizigerDAOPsql;
 import domain.OVChipkaart;
 import domain.Product;
 import domain.Reiziger;
-
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class testReizger_OVChipkaar_Product {
     /**
@@ -26,9 +22,10 @@ public class testReizger_OVChipkaar_Product {
         // predifined values
         ReizigerDAOPsql rdao = new ReizigerDAOPsql(connection);
         OVChipkaartDAOPsql ovcdao = new OVChipkaartDAOPsql(connection);
+        ProductDAOPsql psql = new ProductDAOPsql(connection);
 
-        Product product1 = new Product(202, "test", "test", 12);
-        Product product2 = new Product(202, "e", "e", 6);
+        Product product1 = psql.findByProduct(1, false);
+        Product product2 = psql.findByProduct(2, false);
         Reiziger reiziger001 = rdao.findByid(77);
         OVChipkaart ovChipkaart = ovcdao.findByOVChipkaart(77, false);
 
@@ -43,7 +40,7 @@ public class testReizger_OVChipkaar_Product {
         // update product in ovchipkaart
         System.out.println("\n[TEST]: Reiziger updateProduct from ovchipkaart: ");
         System.out.println("VOOR: " + ovcdao.findByOVChipkaart(ovChipkaart.getKaartNummer(), false));
-        reiziger001.updateProduct(ovChipkaart, product2, connection);
+        reiziger001.updateProduct(ovChipkaart, product1, product2, connection);
         System.out.println("NA: " + ovcdao.findByOVChipkaart(ovChipkaart.getKaartNummer(), false));
 
         // delete product in ovchipkaart

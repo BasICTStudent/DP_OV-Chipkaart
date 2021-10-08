@@ -22,7 +22,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     }
 
     public boolean save(Reiziger reiziger) throws SQLException {
-        String q = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum, adres) VALUES (?, ?, ?, ?, ?, ?)";
+        String q = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum, adres_id) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, reiziger.getReizigerId());
         pst.setString(2, reiziger.getVoorletters());
@@ -35,7 +35,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     }
 
     public boolean update(Reiziger reiziger) throws SQLException {
-        String q = "UPDATE reiziger SET reiziger_id = ?, voorletters = ?, tussenvoegsel = ?, achternaam = ?, geboortedatum = ?, adres = ? WHERE reiziger_id = ?";
+        String q = "UPDATE reiziger SET reiziger_id = ?, voorletters = ?, tussenvoegsel = ?, achternaam = ?, geboortedatum = ?, adres_id = ? WHERE reiziger_id = ?";
         PreparedStatement pst = conn.prepareStatement(q);
         pst.setInt(1, reiziger.getReizigerId());
         pst.setString(2, reiziger.getVoorletters());
@@ -72,7 +72,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
             String tussenvoegsel = myRs.getString("tussenvoegsel");
             String achternaam = myRs.getString("achternaam");
             String geboortedatum = myRs.getString("geboortedatum");
-            int adres_id = myRs.getInt("adres");
+            int adres_id = myRs.getInt("adres_id");
             return new Reiziger(Integer.parseInt(reiziger_id), voorletters, tussenvoegsel, achternaam, Date.valueOf(geboortedatum), new AdresDAOPsql(conn).findByid(adres_id));
         }
         return null;
@@ -91,7 +91,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
             String tussenvoegsel = myRs.getString("tussenvoegsel");
             String achternaam = myRs.getString("achternaam");
             String geboortedatum = myRs.getString("geboortedatum");
-            int adres_id = myRs.getInt("adres");
+            int adres_id = myRs.getInt("adres_id");
             Rlist.add(new Reiziger(Integer.parseInt(reiziger_id), voorletters, tussenvoegsel, achternaam, Date.valueOf(geboortedatum), new AdresDAOPsql(conn).findByid(adres_id)));
         }
         return Rlist;
@@ -109,7 +109,7 @@ public class ReizigerDAOPsql implements ReizigerDAO {
             String tussenvoegsel = myRs.getString("tussenvoegsel");
             String achternaam = myRs.getString("achternaam");
             String geboortedatum = myRs.getString("geboortedatum");
-            int adres_id = myRs.getInt("adres");
+            int adres_id = myRs.getInt("adres_id");
             Rlist.add(new Reiziger(Integer.parseInt(reiziger_id), voorletters, tussenvoegsel, achternaam, Date.valueOf(geboortedatum), adao.findByid(adres_id)));
         }
         return Rlist;
