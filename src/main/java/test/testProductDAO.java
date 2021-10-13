@@ -40,6 +40,10 @@ public class testProductDAO {
             System.out.println("NA: " + productList.size() + " producten");
         }
 
+        int i = 1;
+        System.out.println("\n[Test] Product.findByProduct() geeft het volgende product op id= :1");
+        System.out.println("Product op id = 1: " + pdao.findByProduct(i, false));
+
         try {
             // Update een bestaande product in de database
             System.out.println("\n[Test] Product.update() geeft de volgende verandering:");
@@ -52,7 +56,6 @@ public class testProductDAO {
                 //er is hier een cath omdat de database niks terug zend (dit wordt als een error gezien)
             }
 
-            int i = 1;
             System.out.println("VOOR: " + pdao.findByProduct(i, false));
 
             try {
