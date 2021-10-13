@@ -1,6 +1,7 @@
 package daosql;
 
 import dao.AdresDAO;
+import dao.ReizigerDAO;
 import domain.Adres;
 import domain.Reiziger;
 

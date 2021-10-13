@@ -8,16 +8,16 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OVChipkaart {
     private int kaartNummer;
     private Date geldigTot;
     private int klasse;
     private double saldo;
-
     private int reizigerId;
     private Reiziger reiziger;
-    private ArrayList<Product> producten = new ArrayList<>();
+    private List<Product> producten = new ArrayList<>();
 
 
     public OVChipkaart(int kaartNummer, Date geldigTot, int klasse, double saldo, int reizigerId) {
@@ -75,6 +75,10 @@ public class OVChipkaart {
         this.reiziger = reiziger;
     }
 
+    public List<Product> getProducten() {
+        return producten;
+    }
+
     public void addProduct(Product product, Connection conn) throws SQLException {
         OVChipkaartProductDAOPsql ovcpdao = new OVChipkaartProductDAOPsql(conn);
         try {
@@ -83,6 +87,7 @@ public class OVChipkaart {
             //save geeft standaard niks terug (en geeft dus een error)
         }
         //save geeft standaard niks terug (en geeft dus een error)
+        this.producten.add(product);
     }
 
     public void updateProduct(Product product1, Product product2, Connection conn) throws SQLException {
@@ -97,6 +102,7 @@ public class OVChipkaart {
         } catch (PSQLException exception1) {
             //save geeft standaard niks terug (en geeft dus een error)
         }
+        this.producten.remove(product);
     }
 
     public String toString() {

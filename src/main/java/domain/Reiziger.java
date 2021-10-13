@@ -69,12 +69,14 @@ public class Reiziger {
                 ", tussenvoegsel='" + tussenvoegsel + '\'' +
                 ", achternaam='" + achternaam + '\'' +
                 ", geboortedatum='" + geboortedatum + '\'' +
-                ", adres=" + adres +
+                ", adres=" + adres + '\'' +
+                ", ovChipkaarten=" + ovChipkaarten +
                 '}';
     }
 
 
     public void addOVChipkaart(OVChipkaart ovChipkaart, Connection conn) throws SQLException {
+        this.ovChipkaarten.add(ovChipkaart);
         new OVChipkaartDAOPsql(conn).save(ovChipkaart);
     }
 
@@ -84,6 +86,7 @@ public class Reiziger {
 
     public void deleteOVChipkaart(OVChipkaart ovChipkaart, Connection conn) throws SQLException {
         new OVChipkaartDAOPsql(conn).delete(ovChipkaart);
+        this.ovChipkaarten.remove(ovChipkaart);
     }
 
     public void addProduct(OVChipkaart ovChipkaart, Product product, Connection conn) throws SQLException {
@@ -96,5 +99,9 @@ public class Reiziger {
 
     public void deleteProduct(OVChipkaart ovChipkaart, Product product, Connection conn) throws SQLException {
         ovChipkaart.deleteProduct(product, conn);
+    }
+
+    public ArrayList<OVChipkaart> getOvChipkaarten() {
+        return ovChipkaarten;
     }
 }

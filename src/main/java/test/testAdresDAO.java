@@ -20,7 +20,7 @@ public class testAdresDAO {
         String gbdatum = "2000-01-10";
         Reiziger reiziger = new Reiziger(100, "T0000", "T0000", "T0000", java.sql.Date.valueOf(gbdatum));
         Adres adres = new Adres(100, "1234AB", "T0000", "T0000", "T0000", 100);
-
+        reiziger.setAdres(adres);
 
         System.out.println("\n\n\n\n---------- Test AdresDAO -------------");
 

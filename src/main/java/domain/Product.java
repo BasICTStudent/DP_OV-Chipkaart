@@ -7,7 +7,6 @@ public class Product {
     private String naam;
     private String beschrijving;
     private double prijs;
-
     private ArrayList<OVChipkaart> ovChipkaarten = new ArrayList<>();
 
     public Product(int productNummer, String naam, String beschrijving, double prijs) {
@@ -39,6 +38,9 @@ public class Product {
 
     public double getPrijs() {
         return prijs;
+    }
+    public void setBeschrijving(String beschrijving) {
+        this.beschrijving = beschrijving;
     }
 
     @Override

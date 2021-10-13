@@ -27,6 +27,13 @@ public class testOv_chipkaartDAO {
         Reiziger reiziger = rdao.findByid(100);
         OVChipkaart OVChipkaart001 = new OVChipkaart(100100, Date.valueOf("1999-10-10"), 1, 123.34, 100);
         Reiziger reiziger001 = new Reiziger(77, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
+        try {
+            reiziger.addOVChipkaart(OVChipkaart001, connection);
+        } catch (Exception e) {
+            //geeft standaard een error
+        }
+
+
 
         System.out.println("\n\n\n---------- Test Ov_chipkaartDAO -------------");
 
